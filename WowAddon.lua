@@ -1,3 +1,7 @@
+if not MyAddonDB then
+    MyAddonDB = {}
+end
+
 local mainFrameTitle = "MyAddonMainFrame"
 
 local mainFrame = CreateFrame("Frame", mainFrameTitle, UIParent, "BasicFrameTemplateWithInset")
@@ -40,3 +44,15 @@ SlashCmdList["MYADDON"] = function()
 end
 
 table.insert(UISpecialFrames, mainFrameTitle)
+
+local eventListenerFrameName = "MyAddonEventListenerFrame"
+local eventListenerFrame = CreateFrame("Frame", eventListenerFrameName, UIParent)
+
+local eventHandler = function(self, event)
+    if event == "PLAYER_REGEN_ENABLED" then
+        print("Combat ended")
+    end
+end
+
+eventListenerFrame:SetScript("OnEvent", eventHandler)
+eventListenerFrame:RegisterEvent("PLAYER_REGEN_ENABLED")

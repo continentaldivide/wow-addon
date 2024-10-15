@@ -1,6 +1,8 @@
 print("MyAddon successfully loaded!")
 
-local mainFrame = CreateFrame("Frame", "MyAddonMainFrame", UIParent, "BasicFrameTemplateWithInset")
+local mainFrameTitle = "MyAddonMainFrame"
+
+local mainFrame = CreateFrame("Frame", mainFrameTitle, UIParent, "BasicFrameTemplateWithInset")
 mainFrame:SetSize(500, 350)
 mainFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 mainFrame.TitleBg:SetHeight(30)
@@ -25,3 +27,14 @@ end)
 mainFrame:SetScript("OnHide", function()
     PlaySound(808)
 end)
+
+SLASH_MYADDON1 = "/myaddon"
+SlashCmdList["MYADDON"] = function()
+    if mainFrame:IsShown() then
+        mainFrame:Hide()
+    else
+        mainFrame:Show()
+    end
+end
+
+table.insert(UISpecialFrames, mainFrameTitle)

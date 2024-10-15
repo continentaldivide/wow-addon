@@ -1,5 +1,3 @@
-print("MyAddon successfully loaded!")
-
 local mainFrameTitle = "MyAddonMainFrame"
 
 local mainFrame = CreateFrame("Frame", mainFrameTitle, UIParent, "BasicFrameTemplateWithInset")
@@ -27,6 +25,10 @@ end)
 mainFrame:SetScript("OnHide", function()
     PlaySound(808)
 end)
+
+mainFrame.playerName = mainFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+mainFrame.playerName:SetPoint("TOPLEFT", mainFrame, "TOPLEFT", 15, -35)
+mainFrame.playerName:SetText("Character: " .. UnitName("player") .. " (Level " .. UnitLevel("player") .. ")")
 
 SLASH_MYADDON1 = "/myaddon"
 SlashCmdList["MYADDON"] = function()

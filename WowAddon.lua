@@ -49,10 +49,17 @@ local eventListenerFrameName = "MyAddonEventListenerFrame"
 local eventListenerFrame = CreateFrame("Frame", eventListenerFrameName, UIParent)
 
 local eventHandler = function(self, event)
-    if event == "PLAYER_REGEN_ENABLED" then
-        print("Combat ended")
+    local _, subevent = CombatLogGetCurrentEventInfo()
+
+    if subevent == "PARTY_KILL" then
+        if not MyAddonDB.kills then
+            MyAddonDB.kills = 1
+        else
+            MyAddonDB.kills = MyAddonDB.kills + 1
+        end
+        print(MyAddonDB.kills)
     end
 end
 
 eventListenerFrame:SetScript("OnEvent", eventHandler)
-eventListenerFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+eventListenerFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
